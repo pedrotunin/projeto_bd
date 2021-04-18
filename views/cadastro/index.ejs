@@ -1,0 +1,280 @@
+<%- include("../partials/header") %>
+
+<body style="background-color: aliceblue;">
+    
+    <%- include("../partials/navbar") %>
+
+    <div class="container">
+
+        <hr>
+
+        <% if (tipo == "cliente") { %>
+
+            <center><h4>Cadastro de cliente</h4></center>
+            <form action="/cliente" method="post" class="form-control">
+                
+                <label for="nome">Nome Completo:</label>
+                <input type="text" name="nome" placeholder="Digite seu nome" class="form-control" required>
+
+                <label for="email" class="mt-2">Email:</label>
+                <input type="email" name="email" placeholder="email@email.com" class="form-control" required>
+
+                <div class="row">
+                    <div class="col">
+                        <label for="cpf" class="mt-2">CPF:</label>
+                        <input type="text" name="cpf" placeholder="xxx.xxx.xxx-xx" class="form-control" required>
+                    </div>
+                    <div class="col">
+                        <label for="rg" class="mt-2">RG:</label>
+                        <input type="text" name="rg" placeholder="xx.xxx.xxx-xx" class="form-control" required>
+                    </div>
+                </div>
+
+                <label for="telefone" class="mt-2">Telefone:</label>
+                <input type="text" name="telefone" placeholder="(DDD) xxxxx-xxxx" class="form-control" required>
+
+                <div class="row">
+                    <div class="col">
+                        <label for="cep">CEP:</label>
+                        <input type="number" name="cep" id="cep" placeholder="xxxxx-xxx" class="form-control" required>
+                    </div>
+                    <div class="col">
+                        <label for="logradouro">Logradouro:</label>
+                        <input type="text" name="logradouro" id="logradouro" placeholder="xxxxx-xxx" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label for="numero">Número:</label>
+                        <input type="number" name="numero" class="form-control" placeholder="Número" required>
+                    </div>
+                    <div class="col">
+                        <label for="complemento">Complemento:</label>
+                        <input type="text" name="complemento" class="form-control" placeholder="Complemento">
+                    </div>
+                </div>
+
+                <label for="senha" class="mt-2">Senha:</label>
+                <input type="password" name="senha" placeholder="******" class="form-control" required>
+
+                <label for="repetir_senha" class="mt-2">Repita sua senha:</label>
+                <input type="password" name="repetir_senha" placeholder="******" class="form-control" required>
+
+                <center><button type="submit" class="btn btn-success form-control mt-3 mb-2">Finalizar cadastro</button></center>
+                
+            </form>
+
+        <% } %>
+
+        <% if (tipo == "restaurante") { %>
+
+            <center><h4>Cadastro de restaurante</h4></center>
+            <form action="/restaurante" method="post" class="form-control">
+                
+                <div class="mt-2">
+                    <b>Dados Cadastrais</b>
+                </div>
+                
+
+                <hr>
+
+                <label for="nome_oficial" class="form-label">Nome Oficial:</label>
+                <input type="text" name="nome_oficial" placeholder="Empresa S.A." class="form-control" required>
+
+                <label for="nome_fantasia" class="form-label">Nome Fantasia:</label>
+                <input type="text" name="nome_fantasia" placeholder="Empresa" class="form-control" required>
+
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" name="email" placeholder="email@email.com" class="form-control" required>
+
+                <label for="cnpj" class="form-label">CNPJ:</label>
+                <input type="text" name="cnpj" placeholder="xx.xxx.xxx/0001-xx" class="form-control" required>
+
+                <label for="telefone" class="form-label">Telefone:</label>
+                <input type="text" name="telefone" placeholder="(DDD) xxxxx-xxxx" class="form-control" required>
+
+                <div class="row">
+                    <div class="col">
+                        <label for="cep" class="form-label">CEP:</label>
+                        <input type="number" name="cep" id="cep" placeholder="xxxxx-xxx" class="form-control" required>
+                    </div>
+                    <div class="col">
+                        <label for="logradouro" class="form-label">Endereço:</label>
+                        <input type="text" name="logradouro" id="logradouro" placeholder="xxxxx-xxx" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label for="numero" class="form-label">Número:</label>
+                        <input type="number" name="numero" class="form-control" placeholder="Número" required>
+                    </div>
+                    <div class="col">
+                        <label for="complemento" class="form-label">Complemento:</label>
+                        <input type="text" name="complemento" class="form-control" placeholder="Complemento">
+                    </div>
+                </div>
+
+                <label for="senha" class="form-label">Senha:</label>
+                <input type="password" name="senha" placeholder="******" class="form-control" required>
+
+                <label for="repetir_senha" class="form-label">Repita sua senha:</label>
+                <input type="password" name="repetir_senha" placeholder="******" class="form-control" required>
+
+
+                <div class="mt-3">
+                    <b>Funcionamento do Restaurante</b>
+                </div>
+                
+                <hr>
+
+                <label for="raio" class="form-label">Raio de atendimento (Km):</label>
+                <input type="number" name="raio" placeholder="Digite o raio de entregas" class="form-control" required>
+
+                <div class="row">
+                    <div class="col">
+                        <label for="inicio" class="form-label">Horário de abertura:</label>
+                        <input type="number" name="inicio" placeholder="xx h" class="form-control" required>
+                    </div>
+                    <div class="col">
+                        <label for="fim" class="form-label">Horário de fechamento:</label>
+                        <input type="number" name="fim" placeholder="xx h" class="form-control" required>
+                    </div>
+                </div>
+
+                <label for="tipo_comida" class="form-label">Tipo de comida:</label>
+                <select id="tipo_comida" name="tipo_comida" class="form-select" required>
+                    <option selected>Escolha...</option>
+                    <option value="Churrasco">Churrasco</option>
+                    <option value="Vegetariana">Vegetariana</option>
+                    <option value="Massas">Massas</option>
+                    <option value="Oriental">Oriental</option>
+                    <option value="Lanches">Lanches</option>
+                    <option value="Pizzas">Pizzas</option>
+                    <option value="Árabe">Árabe</option>
+                    <option value="Brasileira">Brasileira</option>
+                    <option value="Doces e Bolos">Doces e Bolos</option>
+                    <option value="Saudável">Saudável</option>
+                    <option value="Bebidas">Bebidas</option>
+                    <option value="Pastel">Pastel</option>
+                    <option value="Salgados">Salgados</option>
+                    <option value="Internacional">Internacional</option>
+                </select>
+
+                <center><button type="submit" class="btn btn-success form-control mt-3 mb-2">Finalizar cadastro</button></center>
+                
+            </form>
+
+        <% } %>
+
+        <% if (tipo == "entregador") { %>
+
+            <div class="container">
+                
+                <center><h4>Cadastro de entregador</h4></center>
+                <form action="/entregador" method="post" class="form-control">
+
+                    <div class="mt-2">
+                        <b>Dados Cadastrais</b>
+                    </div>
+                    <hr>
+                    
+                    <label for="nome">Nome Completo:</label>
+                    <input type="text" name="nome" placeholder="Digite seu nome" class="form-control" required>
+
+                    <label for="email" class="mt-2">Email:</label>
+                    <input type="email" name="email" placeholder="email@email.com" class="form-control" required>
+
+                    <div class="row">
+                        <div class="col">
+                            <label for="cpf" class="mt-2">CPF:</label>
+                            <input type="text" name="cpf" placeholder="xxx.xxx.xxx-xx" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <label for="telefone" class="mt-2">Telefone:</label>
+                    <input type="text" name="telefone" placeholder="(DDD) xxxxx-xxxx" class="form-control" required>
+
+                    <label for="senha" class="mt-2">Senha:</label>
+                    <input type="password" name="senha" placeholder="******" class="form-control" required>
+
+                    <label for="repetir_senha" class="mt-2">Repita sua senha:</label>
+                    <input type="password" name="repetir_senha" placeholder="******" class="form-control" required>
+
+                    <div class="mt-2">
+                        <b>Dados do Veículo</b>
+                    </div>
+                    <hr>
+
+                    <div class="row">
+
+                        <div class="col">
+
+                            <label for="tipo_veiculo" class="form-label">Tipo do veículo:</label>
+                            <select id="tipo_veiculo" name="tipo_veiculo" class="form-select" required>
+                                <option selected>Escolha...</option>
+                                <option value="Moto">Moto</option>
+                                <option value="Carro">Carro</option>
+                            </select>
+
+                        </div>
+                        <div class="col">
+
+                            <label for="placa" class="form-label">Placa do veículo:</label>
+                            <input type="text" name="placa" class="form-control" placeholder="Digite a placa do veículo..." required>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col">
+
+                            <label for="nome_veiculo" class="form-label">Modelo do veículo:</label>
+                            <input type="text" name="nome_veiculo" class="form-control" placeholder="Digite o modelo do veículo..." required>
+
+                        </div>
+                        <div class="col">
+
+                            <label for="ano_veiculo" class="form-label">Ano do veículo:</label>
+                            <input type="number" name="ano_veiculo" class="form-control" placeholder="Digite o ano do veículo..." required>
+
+                        </div>
+
+                    </div>
+
+                    <center><button type="submit" class="btn btn-success form-control mt-3 mb-2">Finalizar cadastro</button></center>
+                
+                </form>
+            
+            </div>
+
+        <% } %>
+        
+        <hr>
+
+    </div>
+
+
+</body>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+
+    const cep = document.getElementById("cep")
+    const logradouro = document.getElementById("logradouro")
+
+    cep.addEventListener("blur", async (event) => {
+        
+        const result = await axios.get(`https://brasilapi.com.br/api/cep/v1/${cep.value}`)
+        const rua = result.data.street
+
+        logradouro.value = rua
+
+    })
+
+</script>
+
+<%- include("../partials/footer") %>

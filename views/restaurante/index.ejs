@@ -1,0 +1,31 @@
+<%- include("../partials/header") %>
+
+<body style="background-color: aliceblue;">
+    
+    <%- include("../partials/navbar") %>
+
+    <hr class="m-3">
+    
+    <center><h4>Restaurantes Disponíveis:</h4></center>
+
+    <% restaurantes.forEach(restaurante => { %>
+
+        <% if (restaurante.aberto) { %>
+            <div class="card m-3"> 
+                <a href="/restaurante/<%= restaurante.id_restaurante %>" style="text-decoration: none;color:black;">   
+                    <h5 class="card-header"> <%= restaurante.nome_fantasia %> </h5>
+                    <div class="card-body">
+                    <h6 class="card-title"> <%= restaurante.tipo %> </h6>
+                    <p class="card-text">Funcionamento: <%= restaurante.hora_abre %>h às <%= restaurante.hora_fecha %>h</p>
+                    </div>
+                </a>
+            </div>
+            <hr class="m-3">
+        <% } %>
+        
+    <% }) %>
+
+
+</body>
+
+<%- include("../partials/footer") %>

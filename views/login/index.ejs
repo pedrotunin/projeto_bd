@@ -1,0 +1,42 @@
+<%- include("../partials/header") %>
+
+<body style="background-color: aliceblue;">
+    
+    <%- include("../partials/navbar") %>
+
+    <div class="container">
+
+        <hr>
+
+        <center><h4>Fazer Login</h4></center>
+
+        <form action="/login" method="post" class="form-control mt-3">
+        
+            <label for="email" class="form-label">E-mail:</label>
+            <input type="email" class="form-control" name="email" required>
+
+            <label for="senha" class="form-label">Senha:</label>
+            <input type="password" class="form-control" name="senha" required>
+
+            <button type="submit" class="form-control btn btn-success mt-3">Entrar</button>
+        
+        </form>
+
+        <hr>
+
+        <% if(message) { %>
+
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <%= message %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
+        <% } %>
+        
+
+    </div>
+
+
+</body>
+
+<%- include("../partials/footer") %>
