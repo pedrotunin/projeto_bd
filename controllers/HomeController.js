@@ -103,7 +103,7 @@ class HomeController{
 
             if (restaurante && pratos && endereco) {
 
-                res.render("restaurante/pratos", { 
+                res.render("prato/index", { 
                     restaurante: restaurante,
                     pratos: pratos,
                     endereco: endereco
@@ -122,7 +122,7 @@ class HomeController{
 
     async carrinho (req, res) {
 
-
+        res.render("carrinho/index")
 
     }
  

@@ -21,7 +21,9 @@ router.get("/redirect", HomeController.redirect)
 router.get("/restaurantes", MiddleWares.isClient, HomeController.restaurantes)
 router.get("/restaurante/:id", MiddleWares.isClient, HomeController.pratos)
 
-router.get("/prato/create", HomeController.novoPrato) // inserir middleware
+router.get("/prato/create", MiddleWares.isRestaurant, HomeController.novoPrato) // inserir middleware
+
+router.get("/carrinho", HomeController.carrinho)
 
 //Login
 router.post("/login", passport.authenticate("local", {
@@ -34,7 +36,9 @@ router.post("/cliente", ClientController.create)
 
 //RestaurantController
 router.post("/restaurante", RestaurantController.create)
-router.post("/prato", DishController.create)    // inserir middleware
+
+//DishController
+router.post("/prato", MiddleWares.isRestaurant, DishController.create)    // inserir middleware
 
 //DeliverManController
 router.post("/entregador", DeliveryManController.create)

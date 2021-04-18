@@ -112,6 +112,18 @@ create table pratos(
 	foreign key(id_restaurante) references restaurantes(id_restaurante)
 );
 
+select * from pratos;
+
+create table carrinho(
+	id_cliente integer,
+	id_restaurante integer,
+	id_prato integer,
+	qtd_prato integer,
+	foreign key(id_cliente) references clientes(id_cliente),
+	foreign key(id_restaurante) references restaurantes(id_restaurante),
+	foreign key(id_prato) references pratos(id_prato)
+)
+
 drop table pratos;
 
 create table pedidos(
