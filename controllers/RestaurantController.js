@@ -49,6 +49,22 @@ class RestaurantController {
 
     }
 
+    async findByUserId (user_id) {
+
+        try {
+            
+            const restaurante = await connection.select("*").from("restaurantes").where({ id_usuario: user_id })
+
+            if (restaurante.length) return restaurante[0]
+            else return undefined
+
+        } catch (error) {
+            console.log(error)
+            return undefined
+        }
+
+    }
+
     async findById (id) {
 
         try {
@@ -58,22 +74,6 @@ class RestaurantController {
             if (restaurante.length) return restaurante[0]
             else return undefined
             
-        } catch (error) {
-            console.log(error)
-            return undefined
-        }
-
-    }
-
-    async findDishesById (id_restaurante) {
-
-        try {
-
-            const dishes = await connection.select("*").from("pratos").where({ id_restaurante: id_restaurante })
-            
-            if (dishes.length) return dishes
-            else return undefined
-
         } catch (error) {
             console.log(error)
             return undefined

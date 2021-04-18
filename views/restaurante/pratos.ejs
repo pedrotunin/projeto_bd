@@ -1,0 +1,74 @@
+<%- include("../partials/header") %>
+
+<body style="background-color: aliceblue;">
+    
+    <%- include("../partials/navbar") %>
+
+    <hr class="m-2">
+
+    <a href="/restaurantes">
+        <button type="button" class="btn-close m-2" aria-label="Close"></button>
+    </a>
+    
+    <div class="container">
+
+        <div class="card mb-3">
+            
+            <div class="card-body">
+              <h5 class="card-title"> <%= restaurante.nome_fantasia %> </h5>
+              <p class="card-text"> <%= restaurante.tipo %> </p>
+              <p class="card-text"><small class="text-muted"> <%= endereco.logradouro %>, <%= endereco.numero %> </small></p>
+            </div>
+        </div>
+
+        <h5>Lista de pratos</h5>
+
+        <hr>
+
+        <div class="list-group">
+
+            <% pratos.forEach(prato => { %>
+
+                <a href="#" class="list-group-item list-group-item-action">
+                    
+                    <div class="card" style="max-width: 100%;border:none">
+                        <div class="row g-0">
+                          <div class="col-md-2">
+                            <img src="https://images.rappi.com.br/products/2093148475-1547671313.png?d=128x90" alt="..." style="max-height: 150px; max-width:150px;">
+                          </div>
+                          <div class="col-md-8">
+                            <div class="card-body">
+                              <h5 class="card-title"> <%= prato.nome %> </h5>
+                              <p class="card-text"><%= prato.descricao %></p>
+                              <p class="card-text">R$<%= prato.preco %></p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                </a>
+        
+            <% }) %>
+            
+        </div>
+
+
+        <div id="body">
+
+            <div id="pratos">
+
+                
+
+            </div>
+
+        </div>
+
+        
+
+    </div>
+
+    <hr class="m-2">
+
+</body>
+
+<%- include("../partials/footer") %>

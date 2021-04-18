@@ -20,6 +20,22 @@ class AddressController {
         
     }
 
+    async findByUserId(user_id) {
+
+        try {
+
+            const endereco = await connection.select("logradouro","numero").from("enderecos").where({ id_usuario: user_id })
+
+            if (endereco.length) return endereco[0]
+            else return undefined
+            
+        } catch (error) {
+            console.log(error)
+            return undefined
+        }
+
+    }
+
 }
 
 module.exports = new AddressController()

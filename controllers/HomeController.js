@@ -1,6 +1,8 @@
 const connection = require("../database/db")
 const UserController = require("./UserController")
 const RestaurantController = require("./RestaurantController")
+const DishController = require("./DishController")
+const AddressController = require("./AddressController")
 
 class HomeController{
 
@@ -83,6 +85,12 @@ class HomeController{
         
     }
 
+    async novoPrato (req, res) {
+
+        res.render("prato/create")
+
+    }
+
     async pratos (req, res) {
 
         try {
@@ -90,13 +98,15 @@ class HomeController{
             const id_restaurante = req.params.id
 
             const restaurante = await RestaurantController.findById(id_restaurante)
-            const pratos = await RestaurantController.findDishesById(id_restaurante)
+            const pratos = await DishController.findDishesByRestaurantId(id_restaurante)
+            const endereco = await AddressController.findByUserId(restaurante.id_usuario)
 
-            if (restaurante && pratos) {
+            if (restaurante && pratos && endereco) {
 
                 res.render("restaurante/pratos", { 
                     restaurante: restaurante,
-                    pratos: pratos
+                    pratos: pratos,
+                    endereco: endereco
                 })
 
             } else {

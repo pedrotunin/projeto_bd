@@ -11,10 +11,18 @@ class MiddleWares {
 
     async isClient (req, res, next) {
 
-        const id = req.session.passport.user
+        try {
 
-        if (req.isAuthenticated() && await UserController.findTypeById(id) == 0) return next()
-        else res.redirect("/redirect")
+            const id = req.session.passport.user
+
+            if (req.isAuthenticated() && await UserController.findTypeById(id) == 0) return next()
+            else res.redirect("/redirect")
+            
+        } catch (error) {
+
+            res.redirect("/redirect")
+            
+        }
 
     }
 

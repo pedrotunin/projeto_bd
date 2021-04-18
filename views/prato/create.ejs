@@ -1,0 +1,41 @@
+<%- include("../partials/header") %>
+
+<body style="background-color: aliceblue;">
+    
+    <%- include("../partials/navbar") %>
+
+
+    <div class="container">
+
+        <hr>
+
+        <center><h5>Cadastrar Prato</h5></center>
+
+
+        <form action="/prato" method="post" class = "form-control mt-3">
+
+            <label for="nome" class="form-label">Nome</label>
+            <input type="text" name="nome" class="form-control" placeholder="Nome do prato" required>
+
+            <label for="descricao" class="form-label">Descrição</label>
+            <textarea name="descricao" class="form-control" placeholder="Insira a descrição do prato" required></textarea>
+
+            <label for="preco" class="form-label">Preço</label>
+            <input type="number" name="preco" class="form-control" placeholder="Valor do prato" required>
+
+            <label for="tipo" class="form-label">Tipo</label>
+            <input type="text" name="tipo" class="form-control" placeholder="Tipo do prato" required>
+
+            <input type="submit" class="form-control btn btn-success mt-3 mb-2">
+
+        </form>
+
+        <hr>
+
+
+    </div>
+
+
+</body>
+
+<%- include("../partials/footer") %>
