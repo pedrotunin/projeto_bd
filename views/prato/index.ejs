@@ -4,6 +4,11 @@
     
     <%- include("../partials/navbar") %>
 
+    <a href="/carrinho" class="m-3">
+      <img src="https://cdn4.iconfinder.com/data/icons/eon-ecommerce-i-1/32/cart_shop_buy_retail-128.png" style="height: 50px;">
+    </a>
+
+
     <hr class="m-2">
 
     <a href="/restaurantes">
@@ -44,6 +49,18 @@
                             </div>
                           </div>
                         </div>
+
+                        <form action="/carrinho/adicionar" method="post" class="form-control">
+
+                          <input type="hidden" name="id_prato" value="<%= prato.id_prato %>">
+                          <input type="hidden" name="id_restaurante" value="<%= restaurante.id_restaurante %>">
+                          <input type="number" name="qtd_prato" class="form-control mb-2" placeholder="Insira a quantidade" required>
+                          <button class="form-control btn btn-success">Adicionar ao carrinho</button>
+
+                        </form>
+
+                        
+           
                       </div>
 
                 </a>

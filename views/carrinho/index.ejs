@@ -6,23 +6,96 @@
 
     <div class="container">
 
-        <center><h4> Carrinho: </h4></center>
 
-        <div class="card mb-3">
-            
+        <% if (error) { %>
+
+          <div class="card mt-3">
+
             <div class="card-body">
-              <h5 class="card-title"> McDonald's </h5>
+              <h5 class="card-title"> <%= error %> </h5>
+            </div>
+
+            
+          </div>
+
+          <a href="/redirect">
+            <button class="form-control btn btn-success mt-3">Voltar</button>
+          </a>
+
+        <% } else { %>
+
+          <center><h4 class="mt-3"> Carrinho: </h4></center>
+
+          <div class="card mb-3">
+              
+              <div class="card-body">
+                <h5 class="card-title"> <%= restaurante.nome_fantasia %> </h5>
+              </div>
+              
+          </div>
+
+          <div class="card mb-3">
+              
+            <div class="card-body">
+              <h5 class="card-title">Itens: </h5>
+
+              <% itens.forEach(item => { %>
+
+                <a href="#" class="list-group-item list-group-item-action">
+                      
+                  <div class="card" style="max-width: 100%;border:none">
+                      <div class="row g-0">
+                        <div class="col-md-2">
+                          <img src="https://images.rappi.com.br/products/2093148475-1547671313.png?d=128x90" alt="..." style="max-height: 150px; max-width:150px;">
+                        </div>
+                        <div class="col-md-8">
+                          <div class="card-body">
+                            <h5 class="card-title"> <%= item.nome %> </h5>
+                            <p class="card-text"><%= item.descricao %></p>
+                            <p class="card-text">Quantidade: <%= item.quantidade %></p>
+                            <p class="card-text">R$<%= item.preco * item.quantidade %></p>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+
+              </a>
+
+              <% }) %>
+
             </div>
             
         </div>
 
         <div class="card mb-3">
-            
-            <div class="card-body">
-              <h5 class="card-title"> Total a pagar: </h5>
-            </div>
-            
+              
+          <div class="card-body">
+            <h5 class="card-title"> Total a pagar: R$<%= total %></h5>
+          </div>
+              
         </div>
+
+        <div>
+
+          <div class="row">
+            <div class="col">
+              <a href="/checkout">
+                <button class="form-control btn btn-success">Continuar para o pagamento</button>
+              </a>
+              
+            </div>
+            <div class="col">
+                <form action="/carrinho/limpar" method="post">
+                  <button class="form-control btn btn-danger">Limpar Carrinho</button>
+                </form> 
+              
+            </div>
+        </div>
+
+        </div>
+
+      <% } %>
 
     </div>
 

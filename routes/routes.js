@@ -8,6 +8,8 @@ const DeliveryManController = require("../controllers/DeliveryManController")
 const HomeController = require("../controllers/HomeController")
 const LoginController = require("../controllers/LoginController")
 const DishController = require("../controllers/DishController");
+const CartController = require("../controllers/CartController")
+const OrderController = require("../controllers/OrderController")
 
 const MiddleWares = require("../middlewares/middlewares");
 
@@ -24,6 +26,7 @@ router.get("/restaurante/:id", MiddleWares.isClient, HomeController.pratos)
 router.get("/prato/create", MiddleWares.isRestaurant, HomeController.novoPrato) // inserir middleware
 
 router.get("/carrinho", HomeController.carrinho)
+router.get("/checkout", HomeController.ckeckout)
 
 //Login
 router.post("/login", passport.authenticate("local", {
@@ -42,5 +45,12 @@ router.post("/prato", MiddleWares.isRestaurant, DishController.create)    // ins
 
 //DeliverManController
 router.post("/entregador", DeliveryManController.create)
+
+//CartController
+router.post("/carrinho/adicionar", MiddleWares.isClient, CartController.addItem)
+router.post("/carrinho/limpar", MiddleWares.isClient, CartController.cleanCart)
+
+//OrderController
+router.post("/pedido", OrderController.create)
 
 module.exports = router

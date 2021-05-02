@@ -114,6 +114,8 @@ create table pratos(
 
 select * from pratos;
 
+drop table pratos;
+
 create table carrinho(
 	id_cliente integer,
 	id_restaurante integer,
@@ -124,10 +126,12 @@ create table carrinho(
 	foreign key(id_prato) references pratos(id_prato)
 )
 
-drop table pratos;
+select * from carrinho;
+
+drop table carrinho;
 
 create table pedidos(
-	id_pedido integer,
+	id_pedido serial,
 	id_cliente integer,
 	id_restaurante integer,
 	id_entregador integer,

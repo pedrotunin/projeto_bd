@@ -44,6 +44,28 @@ class DeliveryManController {
 
     }
 
+    async findAvailable () {
+
+        try {
+
+            const query = "SELECT e.id_entregador FROM entregadores e WHERE e.id_entregador NOT IN (SELECT p.id_entregador FROM pedidos p WHERE is_finalizado = false);"  
+
+            const available = await connection.raw(query)
+
+            if (!available.rows.length) return undefined
+
+            const entregador = available.rows[0].id_entregador
+
+            return entregador
+
+            
+        } catch (error) {
+            console.log(error)
+            return undefined
+        }
+
+    }
+
 }
 
 module.exports = new DeliveryManController()

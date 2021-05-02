@@ -53,6 +53,22 @@ class DishController {
 
     }
 
+    async findById (id) {
+
+        try {
+            
+            const prato = await connection.select("*").from("pratos").where({ id_prato: id })
+            
+            if (prato.length) return prato[0]
+            else return undefined
+
+        } catch (error) {
+            console.log(error)
+            return undefined
+        }
+
+    }
+
 
 }
 

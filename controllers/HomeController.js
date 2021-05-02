@@ -3,6 +3,7 @@ const UserController = require("./UserController")
 const RestaurantController = require("./RestaurantController")
 const DishController = require("./DishController")
 const AddressController = require("./AddressController")
+const ClientController = require("./ClientController")
 
 class HomeController{
 
@@ -51,6 +52,7 @@ class HomeController{
     }
 
     async login (req, res) {
+
         if (req.query.fail)
             res.render("login/index", { message: "E-mail ou senha inválidos!" })
         else
@@ -122,7 +124,89 @@ class HomeController{
 
     async carrinho (req, res) {
 
-        res.render("carrinho/index")
+        const user_id = req.session.passport.user
+        const cliente = await ClientController.findByUserId(user_id)
+
+        try {
+
+            const carrinho = await connection.select("*").from("carrinho").where({ id_cliente: cliente.id_cliente })
+
+            if (!carrinho.length) {
+                res.render("carrinho/index", {error: "Carrinho Vazio!"})
+            }
+
+            const restaurante = await RestaurantController.findById(carrinho[0].id_restaurante)
+            
+            var itens = []
+            var total = 0
+
+            for (let i = 0; i < carrinho.length; i++) {
+
+                const prato = await DishController.findById(carrinho[i].id_prato)
+
+                const novoItem = {
+                    id_prato: prato.id_prato,
+                    quantidade: carrinho[i].qtd_prato,
+                    nome: prato.nome,
+                    descricao: prato.descricao,
+                    preco: prato.preco,
+                    caminho_foto: prato.caminho_foto
+                }
+
+                total += prato.preco * carrinho[i].qtd_prato
+
+                itens.push(novoItem)
+
+            }
+
+            res.render("carrinho/index", {
+                restaurante,
+                itens,
+                total,
+                error: undefined
+            })
+            
+        } catch (error) {
+            
+        }
+
+    }
+
+    async ckeckout (req, res) {
+
+        const user_id = req.session.passport.user
+        const cliente = await ClientController.findByUserId(user_id)
+
+        try {
+
+            const carrinho = await connection.select("*").from("carrinho").where({ id_cliente: cliente.id_cliente })
+
+            if (!carrinho.length) {
+                res.render("carrinho/index", {error: "Carrinho Vazio!"})
+            }
+
+            const restaurante = await RestaurantController.findById(carrinho[0].id_restaurante)
+
+            var total = 0
+
+            for (let i = 0; i < carrinho.length; i++) {
+
+                const prato = await DishController.findById(carrinho[i].id_prato)
+
+                total += prato.preco * carrinho[i].qtd_prato
+            }
+
+            res.render("checkout/index", {
+                restaurante,
+                total
+            })
+
+
+        } catch (error) {
+            console.log(error)
+            res.redirect("/redirect")
+            
+        }
 
     }
  

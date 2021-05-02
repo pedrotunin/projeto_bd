@@ -1,0 +1,107 @@
+<%- include("../partials/header") %>
+
+<body style="background-color: aliceblue;">
+    
+    <%- include("../partials/navbar") %>
+
+    <div class="container">
+
+        <center><h4 class="mt-3"> Pagamento: </h4></center>
+
+        <form action="/pedido" method="post" class="form-control">
+
+            <label for="">Meio de pagamento:</label>
+            <select class="form-select mt-2" name="meio_pagamento" id="select-payment" aria-label="Default select example" required>
+                <option selected disabled>Seleciona a forma de pagamento...</option>
+                <option value="money">Dinheiro</option>
+                <option value="card">Cartão de Crédito</option>
+            </select>
+
+            <div id="money" style="display: none;">
+
+                <label for="troco_para" class="mt-4">Troco para:</label>
+                <input type="number" class="form-control" name="troco_para" id="">
+            
+            </div>
+
+            <div id="card" style="display: none;">
+
+                <div class="row mt-3">
+                    <div class="col">
+                        <label for="" class="form-label">Número do cartão: </label>
+                        <input type="text" name="numero_cartao" class="form-control">
+                    </div>
+                    <div class="col">
+                        <label for="" class="form-label">Nome (Como está escrito no cartão)</label>
+                        <input type="text" name="nome_cartao" class="form-control"> 
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col">
+                        <label for="" class="form-label">Validade do cartão</label>
+                        <input type="month" name="validade_cartao" id="" class="form-control">
+                    </div>
+                    <div class="col">
+                        <label for="" class="form-label">Código de Segurança (CVV)</label>
+                        <input type="number" name="cvv" id="" class="form-control">
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="card">
+            
+                <div class="card-body">
+                    <center><h5 class="card-text">Total: R$<%= total %></h5></center>
+                </div>
+                
+            </div>
+
+            <input type="hidden" name="total" value="<%= total %>">
+
+            <button class="form-control btn btn-success mt-3 mb-2">Finalizar compra</button>
+
+        </form>
+              
+        
+        <a href="/carrinho">
+            <button class=" btn btn-danger mt-3">Voltar</button>
+        </a>
+
+
+    </div>
+
+</body>
+
+<script>
+
+    const select = document.getElementById("select-payment")
+    const card = document.getElementById("card")
+    const money = document.getElementById("money")
+
+    const selectedMoney = document.getElementById("dinheiroSelecionado")
+    const selectedCard = document.getElementById("cartaoSelecionado")
+
+    select.addEventListener("change", async (event) => {
+
+        if (select.value == "card") {
+
+            money.style.display = "none"
+            card.style.display = "block"
+
+        } else if (select.value == "money"){
+
+            card.style.display = "none"
+            money.style.display = "block"
+
+        } else {
+            card.style.display = "none"
+            money.style.display = "none"
+        }
+
+    })
+
+</script>
+
+<%- include("../partials/footer") %>
