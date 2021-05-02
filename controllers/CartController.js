@@ -47,6 +47,21 @@ class CartController {
 
     }
 
+    async cleanCartByUserId (id) {
+
+        const user_id = id
+        const cliente = await ClientController.findByUserId(user_id)
+
+        try {
+
+            const result = await connection.delete("*").from("carrinho").where({ id_cliente: cliente.id_cliente })
+            
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
     async removeItem (req, res) {
 
     }

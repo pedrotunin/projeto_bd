@@ -1,0 +1,52 @@
+<%- include("../../partials/header") %>
+
+<body style="background-color: aliceblue;">
+    
+    <%- include("../../partials/navbar") %>
+
+
+    <hr class="m-2">
+    
+    <div class="container">
+
+        <div class="card mb-3">
+            
+            <div class="card-body">
+              <h5 class="card-title"> <%= restaurante.nome_fantasia %> </h5>
+            </div>
+        </div>
+
+        <h5>Pedidos em andamento</h5>
+
+        <hr>
+
+
+            <% pedidos.forEach(pedido => { %>
+                    
+                <div class="card">
+
+                    <div class="card-header">Pedido N° <%= pedido.id_pedido %> - <b>R$<%= pedido.detalhe_pedido.data.total %></b></div>
+                    <div class="card-body">
+                        <h5 class="card-title">Itens:</h5>
+
+                        <% pedido.detalhe_pedido.data.itens.forEach(item => { %>
+
+                            <p class="card-text">- <%= item.qtd_prato %> x <%= item.nome_prato %></p>
+
+                        <% }) %>
+
+                    </div>
+            
+                </div>
+               
+        
+            <% }) %>
+        
+
+    </div>
+
+    <hr class="m-2">
+
+</body>
+
+<%- include("../../partials/footer") %>

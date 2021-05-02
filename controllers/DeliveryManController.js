@@ -66,6 +66,38 @@ class DeliveryManController {
 
     }
 
+    async findById (id) {
+
+        try {
+
+            const entregador = await connection.select("*").from("entregadores").where({ id_entregador: id })
+
+            if (entregador.length) return entregador[0]
+            return undefined
+            
+        } catch (error) {
+            console.log(error)
+            return undefined
+        }
+
+    }
+
+    async findByUserId (user_id) {
+
+        try {
+
+            const entregador = await connection.select("*").from("entregadores").where({ id_usuario: user_id })
+
+            if (entregador.length) return entregador[0]
+            return undefined
+            
+        } catch (error) {
+            console.log(error)
+            return undefined
+        }
+
+    }
+
 }
 
 module.exports = new DeliveryManController()

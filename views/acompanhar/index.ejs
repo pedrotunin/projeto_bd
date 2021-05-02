@@ -1,0 +1,45 @@
+<%- include("../partials/header") %>
+
+<body style="background-color: aliceblue;">
+    
+    <%- include("../partials/navbar") %>
+
+    <div class="container">
+
+        <hr>
+
+            <div class="card">
+                <div class="card-header">
+                    Pedido de <%= restaurante.nome_fantasia %> - 
+                    <b>
+                    <% if (!is_finalizado) { %> Em andamento 
+                    <% } else {%>
+                        Finalizado
+                    <% } %>
+                    </b>
+                </div>
+                <div class="card-body">
+
+                    <h5 class="card-title">Detalhes do entregador</h5>
+
+                    <p class="card-text"> Nome: <%= entregador.nome %> </p>
+                    <p class="card-text"> Veículo: <%= entregador.modelo_veiculo %> </p>
+                    <p class="card-text"> Placa: <%= entregador.placa_veiculo %> </p>
+                    <hr>
+
+                    <p class="card-text"> Tempo estimado: <%= tempo %> minutos </p>
+
+                    <hr>
+                    <h5 class="card-title">Total: R$ <%= total %></h5>
+                
+                </div>
+            </div>
+
+        <hr>
+
+    </div>
+
+
+</body>
+
+<%- include("../partials/footer") %>

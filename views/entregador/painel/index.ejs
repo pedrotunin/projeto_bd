@@ -1,0 +1,75 @@
+<%- include("../../partials/header") %>
+
+<body style="background-color: aliceblue;">
+    
+    <%- include("../../partials/navbar") %>
+
+    <div class="container">
+
+        <hr>
+
+        <% if (!error) { %>
+
+            <h5>Pedido atual:</h5>
+            <div class="card">
+                <div class="card-header">
+                    <b>Pedido N° <%= pedido.id_pedido %></b>
+                </div>
+                <div class="card-body">
+
+                    <h5 class="card-title">Dados do restaurante</h5>
+                    <p class="card-text"> Nome: <b><%= restaurante.nome_fantasia %></b></p>
+                    <p class="card-text"> Logradouro: <b><%= enderecoRestaurante.logradouro %></b></p>
+                    <p class="card-text"> Número: <b><%= enderecoRestaurante.numero %></b></p>
+                    <p class="card-text"> Complemento: <b><%= enderecoRestaurante.complemento %></b></p>
+
+                    <hr>
+
+                    <h5 class="card-title">Dados do cliente</h5>
+                    <p class="card-text"> Nome: <b><%= cliente.nome %></b></p>
+                    <p class="card-text"> Logradouro: <b><%= enderecoCliente.logradouro %></b></p>
+                    <p class="card-text"> Número: <b><%= enderecoCliente.numero %></b></p>
+                    <p class="card-text"> Complemento: <b><%= enderecoCliente.complemento %></b></p>
+
+                    <hr>
+
+                    <h5 class="card-title">Pagamento</h5>
+
+                    <% if (pedido.detalhe_pagamento.tipo == "money") { %>
+
+                        <p class="card-text"> Tipo de pagamento: <b>Dinheiro</b> </p>
+
+                        <p class="card-text"> Você irá receber: <b>R$<%= pedido.detalhe_pagamento.data.troco_para %></b> </p>
+                        <p class="card-text"> Você tem que dar troco de: <b>R$<%= pedido.detalhe_pagamento.data.troco_para - pedido.detalhe_pedido.data.total %> </b></p>
+
+                    <% } else { %>
+
+                        <p class="card-text"> Tipo de pagamento: Cartão de crédito </p>
+                        <p class="card-text"> <b>O pedido já está pago!</b> </p>
+
+                    <% } %>
+
+                
+                </div>
+
+            </div>
+
+            <a href="/pedido/entregue/<%= pedido.id_pedido %>"><button class="form-control btn btn-success mt-3">Pedido entregue</button></a>
+
+        <% } else { %>
+
+            <h5>Pedido atual:</h5>
+
+            <hr>
+
+            <h6> <%= message %> </h6>
+
+        <% } %>
+        <hr>
+
+    </div>
+
+
+</body>
+
+<%- include("../../partials/footer") %>

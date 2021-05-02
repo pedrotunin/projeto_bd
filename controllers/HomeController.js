@@ -4,6 +4,8 @@ const RestaurantController = require("./RestaurantController")
 const DishController = require("./DishController")
 const AddressController = require("./AddressController")
 const ClientController = require("./ClientController")
+const OrderController = require("./OrderController")
+const DeliveryManController = require("./DeliveryManController")
 
 class HomeController{
 
@@ -27,11 +29,11 @@ class HomeController{
                     break;
                 
                 case 1: //restaurante
-                    res.redirect("/restaurante/painel")
+                    res.redirect("/painel/restaurante")
                     break;
                 
                 case 2: //entregador
-                    res.redirect("/entregador/painel")
+                    res.redirect("/painel/entregador")
                     break;
 
                 default:
@@ -206,6 +208,98 @@ class HomeController{
             console.log(error)
             res.redirect("/redirect")
             
+        }
+
+    }
+
+    async acompanhar (req, res) {
+        
+        const id_pedido = req.params.id_pedido
+
+        const pedido = await OrderController.findById(id_pedido)
+        const restaurante = await RestaurantController.findById(pedido.id_restaurante)
+        const entregador = await DeliveryManController.findById(pedido.id_entregador)
+
+        const total = pedido.detalhe_pedido.data.total
+        const tempo = pedido.tempo_estimado_minutos
+        const is_finalizado = pedido.is_finalizado
+
+        res.render("acompanhar/index", {
+            restaurante: restaurante,
+            entregador: entregador,
+            total: total,
+            tempo: tempo,
+            is_finalizado: is_finalizado
+        })
+
+    }
+
+    async painelEntregador (req, res) {
+
+        try {
+
+            const id_usuario = req.session.passport.user
+            const entregador = await DeliveryManController.findByUserId(id_usuario)
+            const pedidos = await OrderController.findByDeliveryManId(entregador.id_entregador)
+            
+            if (!pedidos) {
+                res.render("entregador/painel/index", {
+                    error: true,
+                    message: "Não há nenhum pedido atualmente."
+                })
+
+            } else {
+
+                const restaurante = await RestaurantController.findById(pedidos[0].id_restaurante)
+                const cliente = await ClientController.findById(pedidos[0].id_cliente)
+
+                const enderecoCliente = await AddressController.findByUserId(cliente.id_usuario)
+                const enderecoRestaurante = await AddressController.findByUserId(restaurante.id_usuario)
+
+                res.render("entregador/painel/index", {
+                    error: false,
+                    pedido: pedidos[0],
+                    enderecoCliente: enderecoCliente,
+                    enderecoRestaurante: enderecoRestaurante,
+                    restaurante: restaurante,
+                    cliente: cliente
+                })
+
+            }
+            
+        } catch (error) {
+            console.log(error)
+            res.redirect("/redirect")
+        }
+
+    }
+
+    async painelRestaurante (req, res) {
+
+        try {
+
+            const restaurante = await RestaurantController.findByUserId(req.session.passport.user)
+            var pedidosAndamento = await OrderController.findAllByRestaurantId(restaurante.id_restaurante)
+
+            for(let i = 0; i < pedidosAndamento.length; i++) {
+
+                for (let j = 0; j < pedidosAndamento[i].detalhe_pedido.data.itens.length; j++) {
+
+                    var prato = await DishController.findById(pedidosAndamento[i].detalhe_pedido.data.itens[j].id_prato)
+                    pedidosAndamento[i].detalhe_pedido.data.itens[j].nome_prato = prato.nome
+
+                }
+
+            }
+
+            res.render("restaurante/painel/index", {
+                restaurante: restaurante,
+                pedidos: pedidosAndamento
+            })
+            
+        } catch (error) {
+            console.log(error)
+            res.redirect("/redirect")            
         }
 
     }

@@ -23,10 +23,16 @@ router.get("/redirect", HomeController.redirect)
 router.get("/restaurantes", MiddleWares.isClient, HomeController.restaurantes)
 router.get("/restaurante/:id", MiddleWares.isClient, HomeController.pratos)
 
-router.get("/prato/create", MiddleWares.isRestaurant, HomeController.novoPrato) // inserir middleware
+router.get("/prato/create", MiddleWares.isRestaurant, HomeController.novoPrato)
 
 router.get("/carrinho", HomeController.carrinho)
 router.get("/checkout", HomeController.ckeckout)
+
+router.get("/acompanhar/:id_pedido", HomeController.acompanhar)
+
+router.get("/painel/entregador", HomeController.painelEntregador)
+
+router.get("/painel/restaurante", HomeController.painelRestaurante)
 
 //Login
 router.post("/login", passport.authenticate("local", {
@@ -52,5 +58,6 @@ router.post("/carrinho/limpar", MiddleWares.isClient, CartController.cleanCart)
 
 //OrderController
 router.post("/pedido", OrderController.create)
+router.get("/pedido/entregue/:id", OrderController.entregue)
 
 module.exports = router

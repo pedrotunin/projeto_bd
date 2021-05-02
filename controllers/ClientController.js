@@ -57,6 +57,22 @@ class ClientController {
         }
 
     }
+
+    async findById (id) {
+
+        try {
+            
+            const cliente = await connection.select("*").from("clientes").where({ id_cliente: id })
+
+            if (cliente.length) return cliente[0]
+            else return undefined
+
+        } catch (error) {
+            console.log(error)
+            return undefined
+        }
+
+    }
     
 
 }

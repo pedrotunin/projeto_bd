@@ -1,3 +1,4 @@
+require('dotenv').config()      
 const express = require("express")
 const app = express()
 const bodyParser = require ("body-parser")
@@ -28,7 +29,7 @@ app.use(passport.session())
 //direciona todas as rotas para o router
 app.use("/", router)
 
-const PORT = 3333
+const PORT = process.env.PORT || 3333
 app.listen(PORT, () => {
     console.log("Site rodando!")
 })
