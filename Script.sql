@@ -9,10 +9,6 @@ create table usuarios(
 
 select * from usuarios;
 
-delete from usuarios;
-
-drop table usuarios;
-
 create table clientes(
 	id_cliente serial,
 	id_usuario integer,
@@ -25,10 +21,6 @@ create table clientes(
 );
 
 select * from clientes;
-
-delete from clientes;
-
-drop table clientes;
 
 create table restaurantes(
 	id_restaurante serial,
@@ -46,10 +38,6 @@ create table restaurantes(
 
 select * from restaurantes;
 
-delete from restaurantes;
-
-drop table restaurantes;
-
 create table entregadores(
 	id_entregador serial,
 	id_usuario integer,
@@ -66,10 +54,6 @@ create table entregadores(
 
 select * from entregadores;
 
-delete from entregadores;
-
-drop table entregadores;
-
 create table telefones(
 	id_usuario integer,
 	numero char(20) not null,
@@ -78,10 +62,6 @@ create table telefones(
 );
 
 select * from telefones;
-
-delete from telefones;
-
-drop table telefones;
 
 create table enderecos(
 	id_usuario integer,
@@ -94,10 +74,6 @@ create table enderecos(
 );
 
 select * from enderecos;
-
-delete from enderecos;
-
-drop table enderecos;
 
 create table pratos(
 	id_prato serial,
@@ -114,8 +90,6 @@ create table pratos(
 
 select * from pratos;
 
-drop table pratos;
-
 create table carrinho(
 	id_cliente integer,
 	id_restaurante integer,
@@ -127,8 +101,6 @@ create table carrinho(
 )
 
 select * from carrinho;
-
-drop table carrinho;
 
 create table pedidos(
 	id_pedido serial,
@@ -145,4 +117,4 @@ create table pedidos(
 	foreign key (id_entregador) references entregadores(id_entregador)
 );
 
-drop table pedidos;
+select * from pedidos;

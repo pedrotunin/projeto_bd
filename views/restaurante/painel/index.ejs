@@ -9,8 +9,15 @@
     
     <div class="container">
 
+        <a href="/prato/create"><button class="form-control btn btn-success mb-5 mt-3">Criar novo prato</button></a>
+
         <div class="card mb-3">
             
+            <% if (error) { %>
+
+                <center><h5><%= message %>. Recarregue a página para verificar novamente.</h5></center>
+    
+            <% } else { %>
             <div class="card-body">
               <h5 class="card-title"> <%= restaurante.nome_fantasia %> </h5>
             </div>
@@ -19,7 +26,6 @@
         <h5>Pedidos em andamento</h5>
 
         <hr>
-
 
             <% pedidos.forEach(pedido => { %>
                     
@@ -42,7 +48,7 @@
         
             <% }) %>
         
-
+        <% } %>
     </div>
 
     <hr class="m-2">

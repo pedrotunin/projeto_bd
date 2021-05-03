@@ -11,7 +11,7 @@ class DishController {
         const restaurant = await RestaurantController.findByUserId(id_user)
 
         const {
-            nome, descricao, preco, tipo
+            nome, descricao, preco, tipo, caminho_foto
         } = req.body
 
         //validar dados antes de inserir
@@ -24,7 +24,8 @@ class DishController {
                 descricao,
                 preco,
                 tipo,
-                is_disponivel
+                is_disponivel,
+                caminho_foto
             }).into("pratos")
 
             if (dish) res.redirect("/restaurante/painel")

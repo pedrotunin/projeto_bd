@@ -281,21 +281,35 @@ class HomeController{
             const restaurante = await RestaurantController.findByUserId(req.session.passport.user)
             var pedidosAndamento = await OrderController.findAllByRestaurantId(restaurante.id_restaurante)
 
-            for(let i = 0; i < pedidosAndamento.length; i++) {
+            if (pedidosAndamento    ) {
 
-                for (let j = 0; j < pedidosAndamento[i].detalhe_pedido.data.itens.length; j++) {
+                for(let i = 0; i < pedidosAndamento.length; i++) {
 
-                    var prato = await DishController.findById(pedidosAndamento[i].detalhe_pedido.data.itens[j].id_prato)
-                    pedidosAndamento[i].detalhe_pedido.data.itens[j].nome_prato = prato.nome
-
+                    for (let j = 0; j < pedidosAndamento[i].detalhe_pedido.data.itens.length; j++) {
+    
+                        var prato = await DishController.findById(pedidosAndamento[i].detalhe_pedido.data.itens[j].id_prato)
+                        pedidosAndamento[i].detalhe_pedido.data.itens[j].nome_prato = prato.nome
+    
+                    }
+    
                 }
+    
+                res.render("restaurante/painel/index", {
+                    restaurante: restaurante,
+                    pedidos: pedidosAndamento,
+                    error: false
+                })
+
+            } else {
+
+                res.render("restaurante/painel/index", {
+                    error: true,
+                    message: "Não há pedidos em andamento atualmente"
+                })
 
             }
 
-            res.render("restaurante/painel/index", {
-                restaurante: restaurante,
-                pedidos: pedidosAndamento
-            })
+            
             
         } catch (error) {
             console.log(error)

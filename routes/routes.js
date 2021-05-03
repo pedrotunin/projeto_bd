@@ -6,7 +6,6 @@ const ClientController = require('../controllers/ClientController')
 const RestaurantController = require("../controllers/RestaurantController")
 const DeliveryManController = require("../controllers/DeliveryManController")
 const HomeController = require("../controllers/HomeController")
-const LoginController = require("../controllers/LoginController")
 const DishController = require("../controllers/DishController");
 const CartController = require("../controllers/CartController")
 const OrderController = require("../controllers/OrderController")
@@ -25,14 +24,14 @@ router.get("/restaurante/:id", MiddleWares.isClient, HomeController.pratos)
 
 router.get("/prato/create", MiddleWares.isRestaurant, HomeController.novoPrato)
 
-router.get("/carrinho", HomeController.carrinho)
-router.get("/checkout", HomeController.ckeckout)
+router.get("/carrinho", MiddleWares.isClient, HomeController.carrinho)
+router.get("/checkout", MiddleWares.isClient,  HomeController.ckeckout)
 
-router.get("/acompanhar/:id_pedido", HomeController.acompanhar)
+router.get("/acompanhar/:id_pedido", MiddleWares.isClient, HomeController.acompanhar)
 
-router.get("/painel/entregador", HomeController.painelEntregador)
+router.get("/painel/entregador", MiddleWares.isDeliveryMan, HomeController.painelEntregador)
 
-router.get("/painel/restaurante", HomeController.painelRestaurante)
+router.get("/painel/restaurante", MiddleWares.isRestaurant, HomeController.painelRestaurante)
 
 //Login
 router.post("/login", passport.authenticate("local", {
@@ -57,7 +56,7 @@ router.post("/carrinho/adicionar", MiddleWares.isClient, CartController.addItem)
 router.post("/carrinho/limpar", MiddleWares.isClient, CartController.cleanCart)
 
 //OrderController
-router.post("/pedido", OrderController.create)
-router.get("/pedido/entregue/:id", OrderController.entregue)
+router.post("/pedido", MiddleWares.isClient, OrderController.create)
+router.get("/pedido/entregue/:id",  MiddleWares.isDeliveryMan, OrderController.entregue)
 
 module.exports = router
